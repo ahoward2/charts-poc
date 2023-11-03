@@ -11,7 +11,7 @@ const data = Object.entries(ibmDaily["Time Series (Daily)"]).map(
 
 const timeAscData = data.reverse();
 
-export default function BasicLine() {
+export default function Baseline() {
   useEffect(() => {
     const chart = Highcharts.chart("chart", {
       chart: {
