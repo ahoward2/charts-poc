@@ -14,11 +14,13 @@ export const GlobalLayout = ({ children }: Props) => {
       className={`${montserrat.className} text-black max-h-screen overflow-hidden`}
     >
       <header className="bg-owl-blue-dark h-12 flex items-center px-6">
-        <div className="text-white font-semibold">Old Well Labs</div>
+        <Link href="/">
+          <div className="text-white font-semibold">Old Well Labs</div>
+        </Link>
       </header>
       <div className="flex w-screen justify-between">
         <nav className="bg-owl-blue-dark text-white flex flex-col py-6 px-6 w-48 min-w-[200px]">
-          <Link href="/dashboard">
+          {/* <Link href="/dashboard">
             <div className="py-2 text-sm">Dashboard</div>
           </Link>
           <Link href="/managers">
@@ -26,7 +28,7 @@ export const GlobalLayout = ({ children }: Props) => {
           </Link>
           <Link href="/allocators">
             <div className="py-2 text-sm">Allocators</div>
-          </Link>
+          </Link> */}
           <Link href="/security">
             <div className="py-2 text-sm">Stocks</div>
           </Link>

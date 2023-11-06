@@ -5,5 +5,9 @@ type Props = {
 };
 
 export default function ArticleLayout({ children }: Props) {
-  return <article className="px-4 pt-24 prose lg-prose-xl">{children}</article>;
+  return (
+    <div className="w-full min-h-full justify-center flex mt-12">
+      <article className="prose lg-prose-xl">{children}</article>
+    </div>
+  );
 }

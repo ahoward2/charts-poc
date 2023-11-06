@@ -23,8 +23,7 @@ export const StocksLayout = ({ children }: Props) => {
           </div>
           {id && (
             <nav className="h-12 flex items-center px-6">
-              <NavItem href={`/security/${id}/ownership`}>Ownership</NavItem>
-              <NavItem href={`/security/${id}/holders`}>Holders</NavItem>
+              <NavItem href={`/security/${id}`}>Summary</NavItem>
               <NavItem href={`/security/${id}/report-builder`}>
                 Report Builder
               </NavItem>

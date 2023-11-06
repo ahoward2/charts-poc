@@ -18,6 +18,9 @@ export const HCLineSeries = ({ series, legend = false }: Props) => {
         zooming: {
           type: "x",
         },
+        style: {
+          fontFamily: "Montserrat",
+        },
       },
       title: {
         text: "",

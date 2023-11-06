@@ -23,18 +23,33 @@ export const PlotlyLineSeries = ({ series, legend = false }: Props) => {
 
   const layout = {
     autosize: true,
-    padding: 0,
     showlegend: legend,
     type: "scatter",
     legend: {
       x: 0,
       y: 1,
     },
+    font: {
+      family: "Montserrat",
+    },
+    modeBar: {
+      orientation: "h",
+    },
+  };
+
+  const config = {
+    responsive: true,
   };
 
   return (
     <div id="chart" className="w-full h-full">
-      <Plot data={data} layout={layout} />
+      <Plot
+        className="w-full h-full"
+        data={data}
+        layout={layout}
+        config={config}
+        useResizeHandler
+      />
     </div>
   );
 };

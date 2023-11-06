@@ -1,6 +1,7 @@
 import { lineColors } from "@/lib/securities/builder";
 import Chart from "chart.js/auto";
 import { useEffect } from "react";
+Chart.defaults.font.family = "Montserrat";
 
 type Series = {
   label: string;

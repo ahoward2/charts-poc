@@ -19,6 +19,9 @@ export const TVLineSeries = ({ series, legend = false }: Props) => {
   useEffect(() => {
     const chart = createChart("chart", {
       autoSize: true,
+      layout: {
+        fontFamily: "Montserrat",
+      },
     });
 
     series.forEach((series, index) => {
