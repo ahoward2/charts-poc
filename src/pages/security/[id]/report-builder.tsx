@@ -1,4 +1,7 @@
+import { HCLineSeries } from "@/components/line-charts/hc-line";
+import { PlotlyLineSeries } from "@/components/line-charts/plotly-line";
 import { TVLineSeries } from "@/components/line-charts/tv-line";
+import { CJSLineSeries } from "@/components/line-charts/cjs-line";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +23,7 @@ import { useState } from "react";
 export default function ReportBuilder() {
   const [benchmarks, setBenchMarks] = useState<number[]>([]);
   const router = useRouter();
-  const { id } = router.query;
+  const { id, variant } = router.query;
 
   const handleAddBenchmark = (benchmark: number) => {
     setBenchMarks((prev) => [...prev, benchmark]);
@@ -55,20 +58,53 @@ export default function ReportBuilder() {
               {getSecurityById(Number(id))?.name ?? "undefined"}
             </div>
             <DropdownMenu>
+              <DropdownMenuTrigger className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3">
+                {variant === "hc"
+                  ? "Highcharts"
+                  : variant === "plotly"
+                  ? "Plotly"
+                  : variant === "cjs"
+                  ? "Chart.js"
+                  : "TradingView"}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Chart Type</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => router.push(`/security/${id}/report-builder`)}
+                >
+                  TradingView
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() =>
+                    router.push(`/security/${id}/report-builder?variant=hc`)
+                  }
+                >
+                  Highcharts
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() =>
+                    router.push(`/security/${id}/report-builder?variant=cjs`)
+                  }
+                >
+                  Chart.js
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() =>
+                    router.push(`/security/${id}/report-builder?variant=plotly`)
+                  }
+                >
+                  Plotly
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DropdownMenu>
               <DropdownMenuTrigger
                 disabled={benchmarks.length >= 6}
                 className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3 disabled:opacity-25"
               >
                 + Add Benchmark
               </DropdownMenuTrigger>
-              {benchmarks.length > 0 && (
-                <button
-                  onClick={() => handleClearBenchmarks()}
-                  className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3"
-                >
-                  Clear Benchmarks
-                </button>
-              )}
               <DropdownMenuContent>
                 <DropdownMenuLabel>Securities</DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -100,9 +136,43 @@ export default function ReportBuilder() {
                 <span className="text-red-500">x</span>
               </button>
             ))}
+            {benchmarks.length > 0 && (
+              <button
+                onClick={() => handleClearBenchmarks()}
+                className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3"
+              >
+                Clear Benchmarks
+              </button>
+            )}
           </div>
           <div className="w-5/6 h-[350px]">
-            <TVLineSeries series={data} legend></TVLineSeries>
+            {variant === "hc" ? (
+              <HCLineSeries
+                series={data.map((serie) => ({
+                  ...serie,
+                  data: serie.data.map((item) => [
+                    new Date(item.time).getTime(),
+                    item.value,
+                  ]),
+                }))}
+                legend
+              ></HCLineSeries>
+            ) : variant === "plotly" ? (
+              <PlotlyLineSeries
+                series={data.map((serie) => ({
+                  ...serie,
+                  data: serie.data.map((item) => ({
+                    x: item.time,
+                    y: item.value,
+                  })),
+                }))}
+                legend
+              ></PlotlyLineSeries>
+            ) : variant === "cjs" ? (
+              <CJSLineSeries series={data} legend></CJSLineSeries>
+            ) : (
+              <TVLineSeries series={data} legend></TVLineSeries>
+            )}
           </div>
         </div>
       </StocksLayout>
