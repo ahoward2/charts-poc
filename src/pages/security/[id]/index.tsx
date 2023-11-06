@@ -2,7 +2,10 @@ import { GlobalLayout } from "@/layouts/GlobalLayout";
 import { StocksLayout } from "@/layouts/StocksLayout";
 import { TVLineSeries } from "@/components/line-charts/tv-line";
 import { useRouter } from "next/router";
-import { getSecurityCloseDataById } from "@/lib/securities/builder";
+import {
+  getSecurityById,
+  getSecurityCloseDataById,
+} from "@/lib/securities/builder";
 import { StocksDetailTable } from "@/components/tables/StockDetail";
 
 export default function Security() {
@@ -13,11 +16,18 @@ export default function Security() {
   return (
     <GlobalLayout>
       <StocksLayout>
-        <div className="flex px-6 py-4 w-full h-[350px]">
-          <TVLineSeries
-            data={[getSecurityCloseDataById(Number(id))]}
-          ></TVLineSeries>
-        </div>
+        {id && (
+          <div className="flex px-6 py-4 w-full h-[350px]">
+            <TVLineSeries
+              series={[
+                {
+                  label: getSecurityById(Number(id))?.name ?? "undefined",
+                  data: getSecurityCloseDataById(Number(id)),
+                },
+              ]}
+            ></TVLineSeries>
+          </div>
+        )}
         <StocksDetailTable id={Number(id)} mode="dense" />
       </StocksLayout>
     </GlobalLayout>

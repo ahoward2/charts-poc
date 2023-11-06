@@ -1,7 +1,16 @@
 import { TVLineSeries } from "@/components/line-charts/tv-line";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { GlobalLayout } from "@/layouts/GlobalLayout";
 import { StocksLayout } from "@/layouts/StocksLayout";
 import {
+  getAllSecuritiesData,
   getSecurityById,
   getSecurityCloseDataById,
 } from "@/lib/securities/builder";
@@ -21,8 +30,20 @@ export default function ReportBuilder() {
     setBenchMarks((prev) => prev.filter((item) => item !== benchmark));
   };
 
-  const data = [getSecurityCloseDataById(Number(id))].concat(
-    benchmarks.map((benchmark) => getSecurityCloseDataById(Number(benchmark)))
+  const handleClearBenchmarks = () => {
+    setBenchMarks([]);
+  };
+
+  const data = [
+    {
+      label: getSecurityById(Number(id))?.name ?? "undefined",
+      data: getSecurityCloseDataById(Number(id)),
+    },
+  ].concat(
+    benchmarks.map((benchmark) => ({
+      label: getSecurityById(Number(benchmark))?.name ?? "undefined",
+      data: getSecurityCloseDataById(Number(benchmark)),
+    }))
   );
 
   return (
@@ -33,14 +54,43 @@ export default function ReportBuilder() {
             <div className="bg-grey-light text-sm px-3 py-1 rounded-md mb-3">
               {getSecurityById(Number(id))?.name ?? "undefined"}
             </div>
-            <button
-              onClick={() => handleAddBenchmark(2)}
-              className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3"
-            >
-              + Add Benchmark
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                disabled={benchmarks.length >= 6}
+                className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3 disabled:opacity-25"
+              >
+                + Add Benchmark
+              </DropdownMenuTrigger>
+              {benchmarks.length > 0 && (
+                <button
+                  onClick={() => handleClearBenchmarks()}
+                  className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3"
+                >
+                  Clear Benchmarks
+                </button>
+              )}
+              <DropdownMenuContent>
+                <DropdownMenuLabel>Securities</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {getAllSecuritiesData()
+                  .filter(
+                    (security) =>
+                      security.id !== Number(id) &&
+                      !benchmarks.includes(security.id)
+                  )
+                  .map((security) => (
+                    <DropdownMenuItem
+                      key={security.id}
+                      onClick={() => handleAddBenchmark(security.id)}
+                    >
+                      {security.name}
+                    </DropdownMenuItem>
+                  ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             {benchmarks.map((benchmark) => (
               <button
+                key={benchmark}
                 onClick={() => handleRemoveBenchmark(benchmark)}
                 className="bg-grey-light text-sm px-3 py-1 rounded-md mb-3 w-full flex justify-between items-center"
               >
@@ -52,7 +102,7 @@ export default function ReportBuilder() {
             ))}
           </div>
           <div className="w-5/6 h-[350px]">
-            <TVLineSeries data={data}></TVLineSeries>
+            <TVLineSeries series={data} legend></TVLineSeries>
           </div>
         </div>
       </StocksLayout>

@@ -1,6 +1,7 @@
 import lookup from "../../../public/data/securities/lookup.json";
 import ibmDaily from "../../../public/data/securities/ibm/daily.json";
-import msftDaily from "../../../public/data/securities/msft/daily.json";
+
+const SECURITIES_DATA_PATH = "/data/securities";
 
 export const getAllSecuritiesData = () => {
   return lookup;
@@ -15,22 +16,22 @@ export const getSecurityById = (id: number) => {
 };
 
 export const getSecurityCloseDataById = (id: number) => {
-  if (id === 1) {
-    return extractCloseData(ibmDaily);
-  } else {
-    return extractCloseData(msftDaily);
-  }
+  const security = getSecurityById(id);
+  if (!security) return [];
+  const path = `${SECURITIES_DATA_PATH}/${security?.symbol.toLowerCase()}/daily.json`;
+  const data = require(`../../../public${path}`);
+  return extractCloseData(data);
 };
 
 export const getSecurityDataById = (id: number) => {
-  if (id === 1) {
-    return extractAllData(ibmDaily);
-  } else {
-    return extractAllData(msftDaily);
-  }
+  const security = getSecurityById(id);
+  if (!security) return [];
+  const path = `${SECURITIES_DATA_PATH}/${security?.symbol.toLowerCase()}/daily.json`;
+  const data = require(`../../../public${path}`);
+  return extractAllData(data);
 };
 
-const extractAllData = (data: typeof ibmDaily | typeof msftDaily) => {
+const extractAllData = (data: typeof ibmDaily) => {
   const formatted = Object.entries(data["Time Series (Daily)"]).map(
     ([key, value]) => {
       return {
@@ -46,7 +47,7 @@ const extractAllData = (data: typeof ibmDaily | typeof msftDaily) => {
   return formatted;
 };
 
-const extractCloseData = (data: typeof ibmDaily | typeof msftDaily) => {
+const extractCloseData = (data: typeof ibmDaily) => {
   const formatted = Object.entries(data["Time Series (Daily)"]).map(
     ([key, value]) => {
       return { time: key, value: Number(value["4. close"]) };
@@ -63,4 +64,10 @@ export const lineColors = [
   "#00B7E0",
   "#00E075",
   "#002AE5",
+  "#F04200",
+  "#F09300",
+  "#F00040",
+  "#F000CF",
+  "#DA00F0",
+  "#8C00F0",
 ];

@@ -1,10 +1,42 @@
 [
     {
         "id": 1,
-        "name": "IBM"
+        "name": "IBM",
+        "symbol": "IBM"
     },
     {
         "id": 2,
-        "name": "Microsoft"
+        "name": "Microsoft",
+        "symbol": "MSFT"
+    },
+    {
+        "id": 3,
+        "name": "Apple",
+        "symbol": "AAPL"
+    },
+    {
+        "id": 4,
+        "name": "Google",
+        "symbol": "GOOGL"
+    },
+    {
+        "id": 5,
+        "name": "Meta",
+        "symbol": "META"
+    },
+    {
+        "id": 6,
+        "name": "Tesla",
+        "symbol": "TSLA"
+    },
+    {
+        "id": 7,
+        "name": "Netflix",
+        "symbol": "NFLX"
+    },
+    {
+        "id": 8,
+        "name": "Amazon",
+        "symbol": "AMZN"
     }
 ]
