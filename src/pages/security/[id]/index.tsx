@@ -6,7 +6,7 @@ import {
   getSecurityById,
   getSecurityCloseDataById,
 } from "@/lib/securities/builder";
-import { StocksDetailTable } from "@/components/tables/StockDetail";
+import { StocksDetailTable } from "@/components/tables/stock-detail";
 
 export default function Security() {
   const router = useRouter();

@@ -6,8 +6,8 @@ type Props = {
 
 export default function ArticleLayout({ children }: Props) {
   return (
-    <div className="w-full min-h-full justify-center flex mt-12">
-      <article className="prose lg-prose-xl">{children}</article>
+    <div className="w-full justify-center h-screen flex mt-12 mb-20 overflow-auto">
+      <article className="prose lg-prose-xl h-[1500px]">{children}</article>
     </div>
   );
 }

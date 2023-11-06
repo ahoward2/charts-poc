@@ -11,7 +11,7 @@ type Props = {
 export const GlobalLayout = ({ children }: Props) => {
   return (
     <div
-      className={`${montserrat.className} text-black max-h-screen overflow-hidden`}
+      className={`${montserrat.className} text-black h-screen overflow-hidden`}
     >
       <header className="bg-owl-blue-dark h-12 flex items-center px-6">
         <Link href="/">
@@ -33,7 +33,9 @@ export const GlobalLayout = ({ children }: Props) => {
             <div className="py-2 text-sm">Stocks</div>
           </Link>
         </nav>
-        <main className={`bg-white min-h-screen w-full`}>{children}</main>
+        <main className={`bg-white min-h-screen h-full w-full`}>
+          {children}
+        </main>
       </div>
     </div>
   );

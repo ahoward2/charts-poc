@@ -37,7 +37,7 @@ export const TVLineSeries = ({ series, legend = false }: Props) => {
   }, [series]);
 
   return (
-    <div id="chart" className="w-full h-full">
+    <div id="chart" className="w-full h-full px-2">
       {legend && (
         <div id="legend" className="flex">
           {series.map((series, index) => (

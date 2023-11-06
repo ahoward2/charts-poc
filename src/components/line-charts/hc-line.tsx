@@ -43,6 +43,9 @@ export const HCLineSeries = ({ series, legend = false }: Props) => {
       legend: {
         enabled: legend,
       },
+      credits: {
+        enabled: false,
+      },
       plotOptions: {
         area: {
           marker: {

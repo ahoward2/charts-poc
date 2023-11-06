@@ -32,13 +32,17 @@ export const PlotlyLineSeries = ({ series, legend = false }: Props) => {
     font: {
       family: "Montserrat",
     },
-    modeBar: {
-      orientation: "h",
-    },
   };
 
   const config = {
     responsive: true,
+    modeBarButtonsToRemove: [
+      "pan2d",
+      "zoom2d",
+      "zoomIn2d",
+      "zoomOut2d",
+      "autoScale2d",
+    ],
   };
 
   return (
@@ -47,6 +51,7 @@ export const PlotlyLineSeries = ({ series, legend = false }: Props) => {
         className="w-full h-full"
         data={data}
         layout={layout}
+        // @ts-ignore
         config={config}
         useResizeHandler
       />

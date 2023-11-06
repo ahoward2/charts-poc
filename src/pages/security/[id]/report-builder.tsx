@@ -37,7 +37,7 @@ export default function ReportBuilder() {
     setBenchMarks([]);
   };
 
-  const data = [
+  const closeData = [
     {
       label: getSecurityById(Number(id))?.name ?? "undefined",
       data: getSecurityCloseDataById(Number(id)),
@@ -52,8 +52,8 @@ export default function ReportBuilder() {
   return (
     <GlobalLayout>
       <StocksLayout>
-        <div className="flex px-6 py-4 h-96 w-full">
-          <div className="border-r w-1/6 pr-6">
+        <div className="flex px-6 py-4 min-h-full w-full">
+          <div className="flex flex-col border-r w-1/6 pr-6 min-h-full">
             <div className="bg-grey-light text-sm px-3 py-1 rounded-md mb-3">
               {getSecurityById(Number(id))?.name ?? "undefined"}
             </div>
@@ -105,6 +105,14 @@ export default function ReportBuilder() {
               >
                 + Add Benchmark
               </DropdownMenuTrigger>
+              {benchmarks.length > 0 && (
+                <button
+                  onClick={() => handleClearBenchmarks()}
+                  className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3"
+                >
+                  - Clear Benchmarks
+                </button>
+              )}
               <DropdownMenuContent>
                 <DropdownMenuLabel>Securities</DropdownMenuLabel>
                 <DropdownMenuSeparator />
@@ -136,43 +144,37 @@ export default function ReportBuilder() {
                 <span className="text-red-500">x</span>
               </button>
             ))}
-            {benchmarks.length > 0 && (
-              <button
-                onClick={() => handleClearBenchmarks()}
-                className="bg-grey-dark text-white text-sm px-3 w-full py-1 rounded-md mb-3"
-              >
-                Clear Benchmarks
-              </button>
-            )}
           </div>
-          <div className="w-5/6 h-[350px]">
-            {variant === "hc" ? (
-              <HCLineSeries
-                series={data.map((serie) => ({
-                  ...serie,
-                  data: serie.data.map((item) => [
-                    new Date(item.time).getTime(),
-                    item.value,
-                  ]),
-                }))}
-                legend
-              ></HCLineSeries>
-            ) : variant === "plotly" ? (
-              <PlotlyLineSeries
-                series={data.map((serie) => ({
-                  ...serie,
-                  data: serie.data.map((item) => ({
-                    x: item.time,
-                    y: item.value,
-                  })),
-                }))}
-                legend
-              ></PlotlyLineSeries>
-            ) : variant === "cjs" ? (
-              <CJSLineSeries series={data} legend></CJSLineSeries>
-            ) : (
-              <TVLineSeries series={data} legend></TVLineSeries>
-            )}
+          <div className="w-5/6 min-h-full overflow-y-scroll">
+            <div className="h-[350px]">
+              {variant === "hc" ? (
+                <HCLineSeries
+                  series={closeData.map((serie) => ({
+                    ...serie,
+                    data: serie.data.map((item) => [
+                      new Date(item.time).getTime(),
+                      item.value,
+                    ]),
+                  }))}
+                  legend
+                ></HCLineSeries>
+              ) : variant === "plotly" ? (
+                <PlotlyLineSeries
+                  series={closeData.map((serie) => ({
+                    ...serie,
+                    data: serie.data.map((item) => ({
+                      x: item.time,
+                      y: item.value,
+                    })),
+                  }))}
+                  legend
+                ></PlotlyLineSeries>
+              ) : variant === "cjs" ? (
+                <CJSLineSeries series={closeData} legend></CJSLineSeries>
+              ) : (
+                <TVLineSeries series={closeData} legend></TVLineSeries>
+              )}
+            </div>
           </div>
         </div>
       </StocksLayout>

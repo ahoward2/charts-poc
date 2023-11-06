@@ -1,6 +1,6 @@
 import { GlobalLayout } from "@/layouts/GlobalLayout";
 import { StocksLayout } from "@/layouts/StocksLayout";
-import { StocksTable } from "@/components/tables/Stocks";
+import { StocksTable } from "@/components/tables/stocks";
 
 export default function Security() {
   return (

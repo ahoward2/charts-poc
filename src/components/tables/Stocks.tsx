@@ -36,5 +36,9 @@ export const StocksTable = () => {
 const NameCellRenderer = (params: ICellRendererParams) => {
   const security = getSecurityByName(params.value);
   const link = `/security/${security?.id ?? 1}`;
-  return <Link href={link}>{params.value}</Link>;
+  return (
+    <Link href={link}>
+      <span className="underline">{params.value}</span>
+    </Link>
+  );
 };
