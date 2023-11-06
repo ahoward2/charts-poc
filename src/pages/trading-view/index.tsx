@@ -12,13 +12,13 @@ export default function TradingView() {
           product creator.
         </p>
         <p>
-          You shall add the "attribution notice" from the NOTICE file and a link
+          You shall add the attribution notice from the NOTICE file and a link
           to https://www.tradingview.com/ to the page of your website or mobile
           application that is available to your users.
         </p>
         <p>
-          As thanks for creating Lightweight Charts™, we'd be grateful if you
-          add the attribution notice in a prominent place.
+          As thanks for creating Lightweight Charts™, wed be grateful if you add
+          the attribution notice in a prominent place.
         </p>
       </ArticleLayout>
     </GlobalLayout>

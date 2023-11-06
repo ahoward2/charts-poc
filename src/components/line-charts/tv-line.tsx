@@ -38,7 +38,7 @@ export const TVLineSeries = ({ series, legend = false }: Props) => {
       {legend && (
         <div id="legend" className="flex">
           {series.map((series, index) => (
-            <div className="px-1 text-sm">
+            <div key={series.label} className="px-1 text-sm">
               <span style={{ color: lineColors[index] }}>{series.label}</span>
             </div>
           ))}
