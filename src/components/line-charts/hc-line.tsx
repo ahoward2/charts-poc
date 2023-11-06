@@ -9,9 +9,14 @@ type Series = {
 type Props = {
   series: Series[];
   legend?: boolean;
+  subTitleEnabled?: boolean;
 };
 
-export const HCLineSeries = ({ series, legend = false }: Props) => {
+export const HCLineSeries = ({
+  series,
+  legend = false,
+  subTitleEnabled = true,
+}: Props) => {
   useEffect(() => {
     const chart = Highcharts.chart("chart", {
       chart: {
@@ -25,13 +30,15 @@ export const HCLineSeries = ({ series, legend = false }: Props) => {
       title: {
         text: "",
       },
-      subtitle: {
-        text:
-          document.ontouchstart === undefined
-            ? "Click and drag in the plot area to zoom in"
-            : "Pinch the chart to zoom in",
-        align: "center",
-      },
+      subtitle: subTitleEnabled
+        ? {
+            text:
+              document.ontouchstart === undefined
+                ? "Click and drag in the plot area to zoom in"
+                : "Pinch the chart to zoom in",
+            align: "center",
+          }
+        : {},
       xAxis: {
         type: "datetime",
       },
