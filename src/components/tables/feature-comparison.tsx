@@ -30,6 +30,9 @@ export const FeatureComparisonTable = ({ id, mode = "comfort" }: Props) => {
       field: "chartjs",
     },
     {
+      field: "aggrid",
+    },
+    {
       field: "plotly",
     },
   ]);
@@ -52,6 +55,7 @@ const staticRowData = [
     characteristic: "Annual Price Per Seat",
     highcharts: "$316",
     tradingview: "Free",
+    aggrid: "Free",
     chartjs: "Free",
     plotly: "Free",
   },
@@ -59,6 +63,7 @@ const staticRowData = [
     characteristic: "Export Options",
     highcharts: "CSV, PNG, JPEG, PDF, SVG",
     tradingview: "Flexible API (toBlob, toDataUrl, etc.)",
+    aggrid: "PNG, JPEG",
     chartjs: "None",
     plotly: "PNG, SVG, JPEG, WebP",
   },
@@ -66,6 +71,7 @@ const staticRowData = [
     characteristic: "Bundle Size",
     highcharts: "96.3kb",
     tradingview: "48.5kb",
+    aggrid: "124.6kb",
     chartjs: "66.7kb",
     plotly: "1.1mb",
   },
@@ -73,6 +79,7 @@ const staticRowData = [
     characteristic: "# of Chart Types",
     highcharts: "~50",
     tradingview: "~6",
+    aggrid: "~28",
     chartjs: "~9",
     plotly: "~100",
   },

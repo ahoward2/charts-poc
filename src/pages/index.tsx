@@ -61,6 +61,17 @@ export default function Home() {
           better. Plotly.js is also 1.1mb minified and gzipped, which is
           gigantic.
         </p>
+        <h2>Ag Grid Standalone Charts</h2>
+        <p>
+          <strong>AgGrid Standalone Charts</strong> offers a small suite of
+          charts that are free to use. See the
+          <Link href="/security/1/report-builder?variant=ag">
+            AgGrid Standalone Charts Report builder example
+          </Link>
+          . The line and area series that we tested both look good and have good
+          performance. The one downside is just lack of support for other chart
+          types.
+        </p>
         <h2>Other Comparisons</h2>
         <FeatureComparisonTable id={1}></FeatureComparisonTable>
       </ArticleLayout>

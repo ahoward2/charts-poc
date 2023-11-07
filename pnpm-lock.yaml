@@ -17,6 +17,12 @@ dependencies:
   '@radix-ui/react-slot':
     specifier: ^1.0.2
     version: 1.0.2(@types/react@18.2.33)(react@18.2.0)
+  ag-charts-community:
+    specifier: ^8.2.1
+    version: 8.2.1
+  ag-charts-react:
+    specifier: ^8.2.1
+    version: 8.2.1(ag-charts-community@8.2.1)(react-dom@18.2.0)(react@18.2.0)
   ag-grid-community:
     specifier: ^30.2.1
     version: 30.2.1
@@ -1117,6 +1123,23 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
     dev: true
+
+  /ag-charts-community@8.2.1:
+    resolution: {integrity: sha512-qN+OThSbQ1Fw7WluAjsxdQQXKQAyZu9mJRph2Ymm95Vq7qxoKaEyAR6iEe2hIjOSOY7LDDJmCRtTin9SOIUjsQ==}
+    dev: false
+
+  /ag-charts-react@8.2.1(ag-charts-community@8.2.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-zv+PlT2+5NrPrWnXqNYsZOj6tICdzshrckFltVzmueOtT5KmielSm9F8ReGdfMdk9UP3k3Bf4iLqt9Hidomtqw==}
+    peerDependencies:
+      ag-charts-community: ~8.2.1
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.3.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      ag-charts-community: 8.2.1
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /ag-grid-community@30.2.1:
     resolution: {integrity: sha512-1slonXskJbbI9ybhTx//4YKfJpZVAEnHL8dui1rQJRSXKByUi+/f7XtvkLsbgBkawoWbqvRAySjYtvz80+kBfA==}

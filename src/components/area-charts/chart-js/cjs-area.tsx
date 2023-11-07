@@ -17,7 +17,7 @@ type Props = {
   legend?: boolean;
 };
 
-export const CJSLineSeries = ({
+export const CJSAreaSeries = ({
   series,
   id = "chart-canvas",
   legend = false,
@@ -34,12 +34,12 @@ export const CJSLineSeries = ({
           borderColor: lineColors[index],
           backgroundColor: lineColors[index],
           tension: 0.1,
+          fill: true,
           pointStyle: false,
         })),
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
         plugins: {
           legend: {
             display: legend,
@@ -57,7 +57,7 @@ export const CJSLineSeries = ({
   }, [series]);
 
   return (
-    <div id="chart" className="w-full h-full relative">
+    <div id="chart" className="w-full h-full">
       <canvas id={id}></canvas>
     </div>
   );
