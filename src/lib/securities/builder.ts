@@ -23,6 +23,14 @@ export const getSecurityCloseDataById = (id: number) => {
   return extractCloseData(data);
 };
 
+export const getSecurityVolumeDataById = (id: number) => {
+  const security = getSecurityById(id);
+  if (!security) return [];
+  const path = `${SECURITIES_DATA_PATH}/${security?.symbol.toLowerCase()}/daily.json`;
+  const data = require(`../../../public${path}`);
+  return extractVolumeData(data);
+};
+
 export const getSecurityDataById = (id: number) => {
   const security = getSecurityById(id);
   if (!security) return [];
@@ -51,6 +59,17 @@ const extractCloseData = (data: typeof ibmDaily) => {
   const formatted = Object.entries(data["Time Series (Daily)"]).map(
     ([key, value]) => {
       return { time: key, value: Number(value["4. close"]) };
+    }
+  );
+
+  const timeAscData = formatted.reverse();
+  return timeAscData;
+};
+
+export const extractVolumeData = (data: typeof ibmDaily) => {
+  const formatted = Object.entries(data["Time Series (Daily)"]).map(
+    ([key, value]) => {
+      return { time: key, value: Number(value["5. volume"]) };
     }
   );
 
