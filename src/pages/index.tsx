@@ -22,6 +22,9 @@ export default function Home() {
           . Although not free, this is the best general purpose charting library
           available to us.
         </p>
+        <Link href="https://www.highcharts.com/demo">
+          See all Highcharts chart types. ↗
+        </Link>
         <h2>Trading View</h2>
         <p>
           <strong>Trading View</strong> offers a few different products,
@@ -38,6 +41,9 @@ export default function Home() {
           . We have the option of using this for free (with attribution) in
           conjunction with a general purpose charting library.
         </p>
+        <Link href="https://tradingview.github.io/lightweight-charts/docs/series-types">
+          See all Lightweight chart types. ↗
+        </Link>
         <h2>
           <s>Chart.js</s>
         </h2>
@@ -49,6 +55,9 @@ export default function Home() {
           </Link>{" "}
           , it&apos;s pretty bad.
         </p>
+        <Link href="https://www.chartjs.org/docs/latest/charts/area.html">
+          See all Chart.js chart types. ↗
+        </Link>
         <h2>Plotly</h2>
         <p>
           <strong>Plotly</strong> has a large variety of chart types and is
@@ -61,6 +70,9 @@ export default function Home() {
           better. Plotly.js is also 1.1mb minified and gzipped, which is
           gigantic.
         </p>
+        <Link href="https://plotly.com/javascript/">
+          See all Plotly chart types. ↗
+        </Link>
         <h2>Ag Grid Standalone Charts</h2>
         <p>
           <strong>AgGrid Standalone Charts</strong> offers a small suite of
@@ -72,6 +84,9 @@ export default function Home() {
           performance. The one downside is just lack of support for other chart
           types.
         </p>
+        <Link href="https://www.ag-grid.com/react-charts/overview/">
+          See all AG Grid Standalone chart types. ↗
+        </Link>
         <h2>Other Comparisons</h2>
         <FeatureComparisonTable id={1}></FeatureComparisonTable>
       </ArticleLayout>
