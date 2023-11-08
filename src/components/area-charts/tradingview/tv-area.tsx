@@ -32,6 +32,8 @@ export const TVAreaSeries = ({ series, legend = false }: Props) => {
       areaSeries.setData(series.data);
     });
 
+    chart.timeScale().fitContent();
+
     return () => {
       chart.remove();
     };

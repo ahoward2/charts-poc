@@ -31,6 +31,8 @@ export const TVLineSeries = ({ series, legend = false }: Props) => {
       lineSeries.setData(series.data);
     });
 
+    chart.timeScale().fitContent();
+
     return () => {
       chart.remove();
     };

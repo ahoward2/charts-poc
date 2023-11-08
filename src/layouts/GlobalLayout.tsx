@@ -10,14 +10,14 @@ type Props = {
 
 export const GlobalLayout = ({ children }: Props) => {
   return (
-    <div className={`${montserrat.className} text-black h-screen`}>
-      <header className="bg-owl-blue-dark h-12 flex items-center px-6">
+    <div className={`${montserrat.className} text-black w-screen h-screen`}>
+      <header className="bg-owl-blue-dark h-12 flex items-center px-6 fixed w-full z-50">
         <Link href="/">
           <div className="text-white font-semibold">Old Well Labs</div>
         </Link>
       </header>
       <div className="flex w-screen justify-between">
-        <nav className="bg-owl-blue-dark text-white flex flex-col py-6 px-6 w-48 min-w-[200px]">
+        <nav className="bg-owl-blue-dark text-white flex flex-col pt-16 px-6 w-1/12 fixed z-40 h-screen">
           {/* <Link href="/dashboard">
             <div className="py-2 text-sm">Dashboard</div>
           </Link>
@@ -31,7 +31,7 @@ export const GlobalLayout = ({ children }: Props) => {
             <div className="py-2 text-sm">Stocks</div>
           </Link>
         </nav>
-        <main className={`bg-white min-h-screen h-full w-full`}>
+        <main className={`bg-white min-h-screen h-full ml-auto w-11/12 pt-12`}>
           {children}
         </main>
       </div>

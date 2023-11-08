@@ -34,6 +34,7 @@ export default function Security() {
                 ]),
               }))}
               subTitleEnabled={false}
+              yAxisTitle="Close Price"
             ></HCLineSeries>
           </div>
         )}
