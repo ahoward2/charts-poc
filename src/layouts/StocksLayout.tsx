@@ -13,7 +13,7 @@ export const StocksLayout = ({ children }: Props) => {
   const { id } = router.query;
 
   return (
-    <div className="w-full min-h-full">
+    <div className="w-full h-full">
       {router.pathname !== "/security" && (
         <>
           <div className="w-full h-12 bg-white flex border-b items-center px-6">

@@ -18,7 +18,7 @@ type Props = {
 export const TVAreaSeries = ({ series, legend = false }: Props) => {
   useEffect(() => {
     const chart = createChart("chart", {
-      autoSize: true,
+      autoSize: false,
       layout: {
         fontFamily: "Montserrat",
       },
@@ -40,7 +40,7 @@ export const TVAreaSeries = ({ series, legend = false }: Props) => {
   return (
     <div id="chart" className="w-full h-full px-2">
       {legend && (
-        <div id="legend" className="relative top-0 left-0 flex">
+        <div id="legend" className="flex relative top-4 z-10 bg-white">
           {series.map((series, index) => (
             <div key={series.label} className="px-1 text-sm">
               <span style={{ color: lineColors[index] }}>{series.label}</span>

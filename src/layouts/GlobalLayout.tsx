@@ -10,9 +10,7 @@ type Props = {
 
 export const GlobalLayout = ({ children }: Props) => {
   return (
-    <div
-      className={`${montserrat.className} text-black h-screen overflow-hidden`}
-    >
+    <div className={`${montserrat.className} text-black h-screen`}>
       <header className="bg-owl-blue-dark h-12 flex items-center px-6">
         <Link href="/">
           <div className="text-white font-semibold">Old Well Labs</div>
