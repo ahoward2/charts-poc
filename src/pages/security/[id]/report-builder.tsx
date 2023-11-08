@@ -102,6 +102,7 @@ export default function ReportBuilder() {
                     (metric) => !metrics.includes(metric)
                   ).map((metric) => (
                     <DropdownMenuItem
+                      key={metric}
                       onClick={() => handleAddMetric(metric)}
                       className="capitalize"
                     >
