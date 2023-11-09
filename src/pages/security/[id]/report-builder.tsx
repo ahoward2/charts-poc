@@ -1,7 +1,7 @@
-import { HCLineSeries } from "@/components/line-charts/hc-line";
-import { PlotlyLineSeries } from "@/components/line-charts/plotly-line";
-import { TVLineSeries } from "@/components/line-charts/tv-line";
-import { CJSLineSeries } from "@/components/line-charts/cjs-line";
+import { HCLineSeries } from "@/components/highcharts/hc-line";
+import { PlotlyLineSeries } from "@/components/plotly/plotly-line";
+import { TVLineSeries } from "@/components/trading-view/tv-line";
+import { CJSLineSeries } from "@/components/chart-js/cjs-line";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,12 +20,13 @@ import {
 } from "@/lib/securities/builder";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { HCAreaSeries } from "@/components/area-charts/highchart/hc-area";
-import { TVAreaSeries } from "@/components/area-charts/tradingview/tv-area";
-import { AGAreaSeries } from "@/components/area-charts/ag-grid/ag-area";
-import { AGLineSeries } from "@/components/line-charts/ag-line";
-import { PlotlyAreaSeries } from "@/components/area-charts/plotly/plotly-area";
-import { CJSAreaSeries } from "@/components/area-charts/chart-js/cjs-area";
+import { HCAreaSeries } from "@/components/highcharts/hc-area";
+import { TVAreaSeries } from "@/components/trading-view/tv-area";
+import { AGAreaSeries } from "@/components/ag-grid/ag-area";
+import { AGLineSeries } from "@/components/ag-grid/ag-line";
+import { PlotlyAreaSeries } from "@/components/plotly/plotly-area";
+import { CJSAreaSeries } from "@/components/chart-js/cjs-area";
+import { ChartContainer } from "@/components/report-builder/chart-container";
 
 const METRIC_OPTIONS = ["closing price", "volume"];
 
@@ -82,8 +83,8 @@ export default function ReportBuilder() {
   return (
     <GlobalLayout>
       <StocksLayout>
-        <div className="flex px-6 py-4 min-h-screen w-full">
-          <div className="flex flex-col border-r w-1/6 pr-6 min-h-full">
+        <div className="flex min-h-screen w-full">
+          <div className="flex flex-col border-r w-1/6 py-3 px-4 min-h-full">
             <div className="bg-grey-light text-sm px-3 py-1 rounded-md mb-3">
               {getSecurityById(Number(id))?.name ?? "undefined"}
             </div>
@@ -221,98 +222,102 @@ export default function ReportBuilder() {
 
           {/* Chart Elements */}
 
-          <div className="w-5/6 px-4">
+          <div className="w-5/6 bg-slate-200 pt-3">
             {metrics.includes("closing price") && (
-              <div className="h-[400px] relative">
-                <div className="h-[400px] absolute w-full">
-                  {variant === "hc" ? (
-                    <HCLineSeries
-                      id="closing-price"
-                      yAxisTitle="Closing Price"
-                      series={closeData.map((serie) => ({
-                        ...serie,
-                        data: serie.data.map((item) => [
-                          new Date(item.time).getTime(),
-                          item.value,
-                        ]),
-                      }))}
-                      legend
-                      subTitleEnabled={false}
-                    ></HCLineSeries>
-                  ) : variant === "plotly" ? (
-                    <PlotlyLineSeries
-                      series={closeData.map((serie) => ({
-                        ...serie,
-                        data: serie.data.map((item) => ({
-                          x: item.time,
-                          y: item.value,
-                        })),
-                      }))}
-                      legend
-                    ></PlotlyLineSeries>
-                  ) : variant === "cjs" ? (
-                    <CJSLineSeries
-                      id="cjs-closing-chart"
-                      series={closeData}
-                      legend
-                    ></CJSLineSeries>
-                  ) : variant === "ag" ? (
-                    <AGLineSeries
-                      series={closeData}
-                      yAxisTitle="Closing Price"
-                      legend
-                    ></AGLineSeries>
-                  ) : (
-                    <TVLineSeries series={closeData} legend></TVLineSeries>
-                  )}
-                </div>
-              </div>
+              <ChartContainer>
+                {variant === "hc" ? (
+                  <HCLineSeries
+                    id="closing-price"
+                    yAxisTitle="Closing Price"
+                    series={closeData.map((serie) => ({
+                      ...serie,
+                      data: serie.data.map((item) => [
+                        new Date(item.time).getTime(),
+                        item.value,
+                      ]),
+                    }))}
+                    legend
+                    subTitleEnabled={false}
+                  ></HCLineSeries>
+                ) : variant === "plotly" ? (
+                  <PlotlyLineSeries
+                    series={closeData.map((serie) => ({
+                      ...serie,
+                      data: serie.data.map((item) => ({
+                        x: item.time,
+                        y: item.value,
+                      })),
+                    }))}
+                    legend
+                  ></PlotlyLineSeries>
+                ) : variant === "cjs" ? (
+                  <CJSLineSeries
+                    id="cjs-closing-chart"
+                    series={closeData}
+                    legend
+                  ></CJSLineSeries>
+                ) : variant === "ag" ? (
+                  <AGLineSeries
+                    series={closeData}
+                    yAxisTitle="Closing Price"
+                    legend
+                  ></AGLineSeries>
+                ) : (
+                  <TVLineSeries
+                    id="tv-closing-chart"
+                    series={closeData}
+                    legend
+                  ></TVLineSeries>
+                )}
+              </ChartContainer>
             )}
             {metrics.includes("volume") && (
-              <div className="h-[400px] relative">
-                <div className="h-[400px] absolute w-full">
-                  {variant === "hc" ? (
-                    <HCAreaSeries
-                      id="volume"
-                      yAxisTitle="Volume"
-                      series={volumeData.map((serie) => ({
-                        ...serie,
-                        data: serie.data.map((item) => [
-                          new Date(item.time).getTime(),
-                          item.value,
-                        ]),
-                      }))}
-                      legend
-                      subTitleEnabled={false}
-                    ></HCAreaSeries>
-                  ) : variant === "ag" ? (
-                    <AGAreaSeries
-                      series={volumeData}
-                      yAxisTitle="Volume"
-                      legend
-                    ></AGAreaSeries>
-                  ) : variant === "plotly" ? (
-                    <PlotlyAreaSeries
-                      series={volumeData.map((serie) => ({
-                        ...serie,
-                        data: serie.data.map((item) => ({
-                          x: item.time,
-                          y: item.value,
-                        })),
-                      }))}
-                      legend
-                    ></PlotlyAreaSeries>
-                  ) : variant === "cjs" ? (
-                    <CJSAreaSeries
-                      id="cjs-volume-chart"
-                      series={volumeData}
-                      legend
-                    ></CJSAreaSeries>
-                  ) : (
-                    <TVAreaSeries series={volumeData} legend></TVAreaSeries>
-                  )}
-                </div>
-              </div>
+              <ChartContainer>
+                {variant === "hc" ? (
+                  <HCAreaSeries
+                    id="volume"
+                    yAxisTitle="Volume"
+                    series={volumeData.map((serie) => ({
+                      ...serie,
+                      data: serie.data.map((item) => [
+                        new Date(item.time).getTime(),
+                        item.value,
+                      ]),
+                    }))}
+                    legend
+                    subTitleEnabled={false}
+                  ></HCAreaSeries>
+                ) : variant === "ag" ? (
+                  <AGAreaSeries
+                    series={volumeData}
+                    yAxisTitle="Volume"
+                    legend
+                  ></AGAreaSeries>
+                ) : variant === "plotly" ? (
+                  <PlotlyAreaSeries
+                    series={volumeData.map((serie) => ({
+                      ...serie,
+                      data: serie.data.map((item) => ({
+                        x: item.time,
+                        y: item.value,
+                      })),
+                    }))}
+                    legend
+                  ></PlotlyAreaSeries>
+                ) : variant === "cjs" ? (
+                  <CJSAreaSeries
+                    id="cjs-volume-chart"
+                    series={volumeData}
+                    legend
+                  ></CJSAreaSeries>
+                ) : (
+                  <TVAreaSeries
+                    id="tv-volume-chart"
+                    series={volumeData}
+                    legend
+                  ></TVAreaSeries>
+                )}
+              </ChartContainer>
             )}
           </div>
         </div>

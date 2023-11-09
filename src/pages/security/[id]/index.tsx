@@ -6,7 +6,7 @@ import {
   getSecurityCloseDataById,
 } from "@/lib/securities/builder";
 import { StocksDetailTable } from "@/components/tables/stock-detail";
-import { HCLineSeries } from "@/components/line-charts/hc-line";
+import { HCLineSeries } from "@/components/highcharts/hc-line";
 
 export default function Security() {
   const router = useRouter();

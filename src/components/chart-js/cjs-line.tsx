@@ -39,7 +39,7 @@ export const CJSLineSeries = ({
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: legend,
@@ -57,7 +57,7 @@ export const CJSLineSeries = ({
   }, [series]);
 
   return (
-    <div id="chart" className="w-full h-full relative">
+    <div id="chart" className="w-full h-full m-auto relative">
       <canvas id={id}></canvas>
     </div>
   );

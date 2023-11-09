@@ -17,7 +17,7 @@ export const GlobalLayout = ({ children }: Props) => {
         </Link>
       </header>
       <div className="flex w-screen justify-between">
-        <nav className="bg-owl-blue-dark text-white flex flex-col pt-16 px-6 w-1/12 fixed z-40 h-screen">
+        <nav className="bg-owl-blue-dark text-white flex flex-col pt-16 px-6 w-[200px] fixed z-40 h-screen">
           {/* <Link href="/dashboard">
             <div className="py-2 text-sm">Dashboard</div>
           </Link>
@@ -31,7 +31,9 @@ export const GlobalLayout = ({ children }: Props) => {
             <div className="py-2 text-sm">Stocks</div>
           </Link>
         </nav>
-        <main className={`bg-white min-h-screen h-full ml-auto w-11/12 pt-12`}>
+        <main
+          className={`bg-white min-h-screen flex w-full h-full pl-[200px] pt-12`}
+        >
           {children}
         </main>
       </div>

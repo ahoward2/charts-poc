@@ -1,7 +1,6 @@
-import Highcharts from "highcharts";
+import Highcharts, { Options } from "highcharts";
 import { useEffect } from "react";
-import { Options } from "highcharts";
-import { commonHCOptions } from "../../common";
+import { commonHCOptions } from "../common";
 
 type Series = {
   label: string;
@@ -16,9 +15,9 @@ type Props = {
   yAxisTitle?: string;
 };
 
-export const HCAreaSeries = ({
-  id = "chart",
+export const HCLineSeries = ({
   series,
+  id = "chart",
   legend = false,
   subTitleEnabled = true,
   yAxisTitle,
@@ -27,15 +26,16 @@ export const HCAreaSeries = ({
     const chart = Highcharts.chart(id, {
       ...(commonHCOptions({ legend, subTitleEnabled, yAxisTitle }) as Options),
       series: series.map((series) => ({
-        type: "area",
+        type: "line",
         name: series.label,
         data: series.data,
       })),
     });
+
     return () => {
       chart.destroy();
     };
   }, [series]);
 
-  return <div id={id} className="w-full"></div>;
+  return <div id={id} className="w-full h-full pt-8"></div>;
 };

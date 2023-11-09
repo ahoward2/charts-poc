@@ -40,6 +40,7 @@ export const CJSAreaSeries = ({
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: legend,
@@ -57,7 +58,7 @@ export const CJSAreaSeries = ({
   }, [series]);
 
   return (
-    <div id="chart" className="w-full h-full">
+    <div id="chart" className="w-full h-full m-auto relative">
       <canvas id={id}></canvas>
     </div>
   );

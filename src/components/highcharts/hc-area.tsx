@@ -5,9 +5,7 @@ import { commonHCOptions } from "../common";
 
 type Series = {
   label: string;
-  data: {
-    y: number;
-  }[];
+  data: number[][];
 };
 
 type Props = {
@@ -18,7 +16,7 @@ type Props = {
   yAxisTitle?: string;
 };
 
-export const HCPie = ({
+export const HCAreaSeries = ({
   id = "chart",
   series,
   legend = false,
@@ -29,7 +27,7 @@ export const HCPie = ({
     const chart = Highcharts.chart(id, {
       ...(commonHCOptions({ legend, subTitleEnabled, yAxisTitle }) as Options),
       series: series.map((series) => ({
-        type: "pie",
+        type: "area",
         name: series.label,
         data: series.data,
       })),
@@ -39,5 +37,5 @@ export const HCPie = ({
     };
   }, [series]);
 
-  return <div id={id} className="w-full"></div>;
+  return <div id={id} className="w-full h-full pt-8"></div>;
 };

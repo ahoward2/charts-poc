@@ -11,24 +11,30 @@ type Series = {
 };
 
 type Props = {
+  id?: string;
   series: Series[];
   legend?: boolean;
 };
 
-export const TVLineSeries = ({ series, legend = false }: Props) => {
+export const TVAreaSeries = ({
+  id = "chart",
+  series,
+  legend = false,
+}: Props) => {
   useEffect(() => {
-    const chart = createChart("chart", {
-      autoSize: true,
+    const chart = createChart(id, {
+      autoSize: false,
       layout: {
         fontFamily: "Montserrat",
       },
     });
 
     series.forEach((series, index) => {
-      const lineSeries = chart.addLineSeries({
-        color: lineColors[index],
+      const areaSeries = chart.addAreaSeries({
+        lineColor: lineColors[index],
+        bottomColor: lineColors[index],
       });
-      lineSeries.setData(series.data);
+      areaSeries.setData(series.data);
     });
 
     chart.timeScale().fitContent();
@@ -39,7 +45,7 @@ export const TVLineSeries = ({ series, legend = false }: Props) => {
   }, [series]);
 
   return (
-    <div id="chart" className="w-full h-full px-2">
+    <div id={id} className="w-full h-full px-2">
       {legend && (
         <div id="legend" className="flex">
           {series.map((series, index) => (
